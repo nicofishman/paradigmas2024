@@ -31,11 +31,12 @@ porcentajePorAntiguedad antiguedad
 
 proporcionalidadDeHoras:: Int -> Float
 proporcionalidadDeHoras horas
-    | horas <= 15 = 1
+    | horas >= 5 && horas <= 15 = 1
     | horas > 15 && horas <= 25 = 2
     | horas > 25 && horas <= 35 = 3
     | horas > 35 && horas <= 45 = 4
-    | horas > 45 && horas <= 55 = 5
+    | horas > 45 && horas <= 50 = 5
+    | otherwise = 0
 
 calcularSueldo :: String -> Int -> Int -> Float
 calcularSueldo cargo antiguedad horas = basicoEnBaseACargo cargo * porcentajePorAntiguedad antiguedad * proporcionalidadDeHoras horas
