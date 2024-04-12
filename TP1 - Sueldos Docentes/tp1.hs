@@ -24,19 +24,13 @@ basicoEnBaseACargo cargo
 porcentajePorAntiguedad:: Int -> Float
 porcentajePorAntiguedad antiguedad
     | antiguedad < 3 = 1
-    | antiguedad >= 3 && antiguedad < 5 = 1.2
-    | antiguedad >= 5 && antiguedad < 10 = 1.3
-    | antiguedad >= 10 && antiguedad < 24 = 1.5
-    | antiguedad >= 24 = 2.2
+    | antiguedad < 5 = 1.2
+    | antiguedad < 10 = 1.3
+    | antiguedad < 24 = 1.5
+    | otherwise = 2.2
 
 proporcionalidadDeHoras:: Int -> Float
-proporcionalidadDeHoras horas
-    | horas >= 5 && horas <= 15 = 1
-    | horas > 15 && horas <= 25 = 2
-    | horas > 25 && horas <= 35 = 3
-    | horas > 35 && horas <= 45 = 4
-    | horas > 45 && horas <= 50 = 5
-    | otherwise = 0
+proporcionalidadDeHoras horas = fromIntegral (round (fromIntegral horas / 10))
 
 calcularSueldo :: String -> Int -> Int -> Float
 calcularSueldo cargo antiguedad horas = basicoEnBaseACargo cargo * porcentajePorAntiguedad antiguedad * proporcionalidadDeHoras horas
