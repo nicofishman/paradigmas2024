@@ -5,33 +5,35 @@
 -- Luego se nos pide averiguar si puede ver, es decir, si tiene ojos y su categoría.
 
 data Poder = UnPoder
-  { cantCura :: Int,
-    cantDanio :: Int,
-    rangoAtaque :: Int,
-    probaCritico :: Int
-  }
+    { cantCura     :: Int,
+      cantDanio    :: Int,
+      rangoAtaque  :: Int,
+      probaCritico :: Int
+    }
 
 data Nomu = UnNomu
-  { tieneAlas :: Bool,
-    cantBrazos :: Int,
-    color :: String,
-    vida :: Int,
-    fuerza :: Int,
-    cantOjos :: Int,
-    poderes :: [Poder]
-  }
+    { tieneAlas  :: Bool,
+      cantBrazos :: Int,
+      color      :: String,
+      vida       :: Int,
+      fuerza     :: Int,
+      cantOjos   :: Int,
+      poderes    :: [Poder]
+    }
 
 categorizarNomu :: Nomu -> String
 categorizarNomu nomu
-  | f > 1000 && f < 3000 = "Común"
-  | f < 10000 = "Fuerte"
-  | f > 10000 = "High-end"
-  | otherwise = "Pichi"
+    | f > 1000 && f < 3000 = "Común"
+    | f < 10000 = "Fuerte"
+    | f > 10000 = "High-end"
+    | otherwise = "Pichi"
   where
     f = fuerza nomu
 
 puedeVer :: Nomu -> Bool
-puedeVer nomu = ojos > 0 where ojos = cantOjos nomu
+puedeVer nomu = ojos > 0
+  where
+    ojos = cantOjos nomu
 
 -- Averiguar la probabilidad de daño crítico del último poder que un Nomu consiguió.
 probaDanioCriticoUltimoPoder :: Nomu -> Int
