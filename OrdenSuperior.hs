@@ -17,6 +17,10 @@ all' _ [] = True -- Devuelve True si todos los elementos cumplen la condición
 any' :: (a -> Bool) -> [a] -> Bool
 any' _ [] = False -- Devuelve True si algún elemento cumple la condición
 
+-- Una funcion que se fija si un elemento pertenece a una lista
+elem' :: Eq a => a -> [a] -> Bool
+elem' _ [] = False -- Devuelve True si el elemento pertenece a la lista
+
 todosPares :: [Int] -> Bool
 todosPares = all even
 
@@ -38,3 +42,24 @@ cuantasPalabrasConMasDeXLetras lista largo = length (filter (> largo) (longitudP
 
 cuantasPalabrasConMasDeDiezLetras :: [String] -> Int
 cuantasPalabrasConMasDeDiezLetras lista = cuantasPalabrasConMasDeXLetras lista 10
+
+
+-- Ejemplo funciòn orden superior:
+f :: Ord a => (t -> a) -> (t -> a) -> t -> t -> a
+f a b c
+    | a c > b c = a
+    | otherwise = b
+
+g :: Ord a => (t -> a) -> (t -> a) -> t -> t -> a
+g a b c x
+    | a c > b c = a x 
+    | otherwise = b x
+
+doble :: Int -> Int
+doble x = x * 2
+
+triple :: Int -> Int
+triple x = x * 3
+
+losDosPrimeros :: [a] -> [a]
+losDosPrimeros = take 2 
