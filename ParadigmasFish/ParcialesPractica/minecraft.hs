@@ -90,3 +90,44 @@ quedaConMasPuntos personaje recetas = puntajeFinal personaje recetas > puntajeFi
 
 
 -- MINE https://docs.google.com/document/d/1i9rB5AzRswz_0Z4T1v5IgRhC3UT-d_Ib1K7LUeq5sa0/edit
+
+data Bioma = UnBioma {
+  materialesBioma :: [Material],
+  elementoNecesario :: Material
+}
+
+type Herramienta = [Material] -> Material
+
+eliminarUltimos2::[Material]->[Material]
+eliminarUltimos2 materiales = take (length materiales - 2) materiales
+
+-- el hacha hace que se mine el último de los materiales del bioma
+hacha::Herramienta
+hacha = last
+
+-- la espada actúa sobre el primero de ellos
+espada::Herramienta
+espada = head
+
+-- Existe tambien el pico, que por ser más preciso permite apuntar a una determinada posición de los materiales
+pico::Int->Herramienta
+pico posicion = (!! posicion)
+
+artico::Bioma
+artico = UnBioma ["Hielo", "Iglu", "Iglu", "Lobos"] "Sueter"
+
+tieneElementoNecesario::Bioma->Personaje->Bool
+tieneElementoNecesario bioma personaje = elem (elementoNecesario bioma) (inventario personaje)
+
+minar::Herramienta->Bioma->Personaje->Personaje
+minar herramienta bioma personaje
+  | tieneElementoNecesario bioma personaje = (agregarMaterial (herramienta (materialesBioma bioma)) personaje) {
+    puntaje = puntaje personaje + 50
+  }
+  | otherwise = personaje
+
+-- ¿Qué pasa al intentar minar en un bioma con infinitos materiales? Mostrar ejemplos donde con diferentes herramientas o personajes sucedan diferentes cosas. Justificar. 
+
+listaInfinita::[Material]
+listaInfinita = repeat "Madera"
+
