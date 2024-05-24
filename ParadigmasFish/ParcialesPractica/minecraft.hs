@@ -77,13 +77,13 @@ buscarReceta::Material->[Receta]->Receta
 buscarReceta material recetas = head (filter (\receta -> resultado receta == material) recetas)
 
 craftearSucesivamente::Personaje->[Receta]->Personaje
-craftearSucesivamente personaje recetas = foldl (flip craftear) personaje recetas
+craftearSucesivamente personaje lista = foldr craftear personaje lista
 
 puntajeFinal::Personaje->[Receta]->Int
 puntajeFinal personaje recetas = puntaje (craftearSucesivamente personaje recetas)
 
 puntajeFinalAlReves::Personaje->[Receta]->Int
-puntajeFinalAlReves personaje recetas = puntaje (craftearSucesivamente personaje (reverse recetas))
+puntajeFinalAlReves personaje recetas = puntajeFinal personaje (reverse recetas)
 
 quedaConMasPuntos::Personaje->[Receta]->Bool
 quedaConMasPuntos personaje recetas = puntajeFinal personaje recetas > puntajeFinalAlReves personaje recetas
