@@ -15,12 +15,11 @@ paisLimitrofeDeOtroContinente(Pais, OtroPais) :-
   sonLimitrofes(Pais, OtroPais).
 
 % Predicado que me diga los enemigos de un país, es decir sus limítrofes que no tengan el mismo color.
-enemigos(Pais) :-
+enemigos(Pais, E) :-
   ocupa(Color, Pais, _),
-  ocupa(OtroColor, OtroPais, _),
+  ocupa(OtroColor, E, _),
   Color \= OtroColor,
-  sonLimitrofes(Pais, OtroPais),
-  write(OtroPais).
+  sonLimitrofes(Pais, E).
   
 % Predicado complicado/1 verifica si un país está "complicado", es decir, si tiene dos países limítrofes del mismo color y la suma de los ejércitos de ambos países es al menos 5.
 complicado(Pais) :-
@@ -45,4 +44,4 @@ puede_atacar(Pais) :-
 % Un ejercito esFuerte/1 si ninguno de sus países está complicado.
 esFuerte(Color) :-
   ocupa(Color, Pais, _),
-  not(complicado(Pais)).
+  forall(ocupa(Color, Pais, _), not(complicado(Pais))).
